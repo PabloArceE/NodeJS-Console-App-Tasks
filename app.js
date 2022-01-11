@@ -1,5 +1,6 @@
 require('colors');
 
+const { guardarInfo, leerInfo } = require('./helpers/interaccionBD');
 const { inquireMenu,
         pause,
         leerInput
@@ -8,15 +9,18 @@ const { inquireMenu,
 const Tareas = require('./models/tareas');
 
 
-
-
-
-
 const main = async() => {
 
     let opt = '';
     const tareas = new Tareas();
 
+    const tareasFromDB = leerInfo();
+
+    if(tareasFromDB){
+        tareas.cargarTareasFromDB(tareasFromDB);
+    }
+
+   
     do{
         opt = await inquireMenu();
         
@@ -31,7 +35,7 @@ const main = async() => {
 
             case '2': 
 
-                console.log(tareas._listado);
+                tareas.listadoCompleto();
 
             break;
 
@@ -56,6 +60,8 @@ const main = async() => {
             break;
 
         }
+
+        guardarInfo(tareas.listadoArr);
                
         await pause();
         
