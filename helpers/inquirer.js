@@ -48,11 +48,11 @@ const questions = {
 
 const inquireMenu = async() => {
 
-    // console.clear();
-    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'.green);
-    console.log('       NodeJS Console App          '.blue);
-    console.log('             Tasks                 '.blue);
-    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'.green);
+    console.clear();
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'.green);
+    console.log('            NodeJS Console App          '.blue);
+    console.log('                Pablo Arce                '.blue);
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'.green);
 
     const {options} = await inquirer.prompt(questions);
 

@@ -33,12 +33,12 @@ class Tareas{
     cargarTareasFromDB( arrTareas ){
         arrTareas.forEach(tarea => {
             this._listado[tarea.id] = tarea;
-        })
+        });
     }
 
     listadoCompleto(){
         
-        console.log()
+        console.log();
 
         this.listadoArr.forEach((tarea, i) => {
             
@@ -50,12 +50,12 @@ class Tareas{
 
             console.log(`${idx}. ${desc} | ${estado}`);
 
-        })
+        });
     }
 
     tareasCompletadas(completadas = true){
 
-        console.log()
+        console.log();
 
         let count = 1;
 
@@ -77,7 +77,7 @@ class Tareas{
                     count += 1;
                 }
             }
-         })    
+         });    
     }
 
     toggleCompletadas(ids = []){
@@ -89,7 +89,16 @@ class Tareas{
                 tarea.completadoEn = new Date().toISOString();
             }
 
-        })
+        });
+
+        this.listadoArr.forEach( tarea => {
+
+            if(!ids.includes(tarea.id)){
+
+                this._listado[tarea.id].completadoEn = null;
+
+            }
+        });
 
     }
 
