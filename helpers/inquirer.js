@@ -5,7 +5,7 @@ const questions = {
 
     type: 'list',
     name: 'options',
-    message: 'Que quiere hacer?',
+    message: 'Que quiere hacer?\n',
     choices:[
         {
             name: '1. Crear tarea',
@@ -41,18 +41,20 @@ const questions = {
             name: '7. Salir',
             value: '0'
             
-        }        
+        }
+                
     ]
 }
 
 const inquireMenu = async() => {
 
     // console.clear();
-    console.log('========================='.green);
-    console.log('  Seleccione una opción  '.blue);
-    console.log('=========================\n'.green);
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'.green);
+    console.log('       NodeJS Console App          '.blue);
+    console.log('             Tasks                 '.blue);
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'.green);
 
-    const {options} = await inquirer.prompt([questions]);
+    const {options} = await inquirer.prompt(questions);
 
     return options;
 }
@@ -110,7 +112,7 @@ const listadoTareasBorrar = async( tareas ) => {
         name: '0.'.green + ' Cancelar'
     })
     
-    const questions = [
+    const question = [
         {
             type: 'list',
             name: 'id',
@@ -119,7 +121,7 @@ const listadoTareasBorrar = async( tareas ) => {
         }
     ]
 
-    const { id } = await inquirer.prompt(questions);
+    const { id } = await inquirer.prompt(question);
 
     return id;
 }
@@ -139,11 +141,39 @@ const confirm = async( message ) => {
     return ok;
 }
 
+const mostrarListadoChecklist = async( tareas ) => {
+
+    const choices = tareas.map( (tarea, i) => {
+
+        const idx = `${i + 1}.`.green;
+
+        return {
+            value: tarea.id,
+            name: `${idx} ${tarea.desc}`,
+            checked: (tarea.completadoEn) ? true : false
+        }        
+    })
+
+    const question = [
+        {
+            type: 'checkbox',
+            name: 'ids',
+            message: 'Selecciones las tareas completadas\n',
+            choices
+        }
+    ]
+
+    const { ids } = await inquirer.prompt(question);
+
+    return ids;
+}
+
 
 module.exports = {
     inquireMenu,
     pause,
     leerInput,
     listadoTareasBorrar,
-    confirm
+    confirm,
+    mostrarListadoChecklist
 }
