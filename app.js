@@ -3,7 +3,9 @@ require('colors');
 const { guardarInfo, leerInfo } = require('./helpers/interaccionBD');
 const { inquireMenu,
         pause,
-        leerInput
+        leerInput,
+        listadoTareasBorrar,
+        confirm
 } = require('./helpers/inquirer');
 
 const Tareas = require('./models/tareas');
@@ -41,10 +43,12 @@ const main = async() => {
 
             case '3': 
 
+                tareas.tareasCompletadas(true);
+
             break;
 
             case '4': 
-
+                tareas.tareasCompletadas(false);
             break;
 
             case '5': 
@@ -52,6 +56,16 @@ const main = async() => {
             break;
 
             case '6': 
+                const id = await listadoTareasBorrar( tareas.listadoArr );
+                
+                if(id !== '0'){
+                    
+                    const ok = await confirm('Por favor confirme que desea borra la tarea');
+                    if(ok){
+                        tareas.borrarTarea(id);
+                        console.log('Tarea borrada')
+                    }
+                }
 
             break;
 
